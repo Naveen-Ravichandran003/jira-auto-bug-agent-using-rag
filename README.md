@@ -8,6 +8,15 @@ An Enterprise AI Agent that automatically converts screenshots, PDFs, and text i
 
 Built with strict anti-hallucination guardrails, the agent guarantees zero assumptions—if the evidence isn't there, it won't make it up. 
 
+## 🧠 Why RAG for Bug Mapping?
+
+Using a Large Language Model (LLM) alone for enterprise bug reporting often leads to "hallucinations" where the model guesses missing information. We use **Retrieval-Augmented Generation (RAG)** to solve this:
+
+1. **Enforcing "Zero Assumptions":** The LLM is restricted exclusively to the provided evidence. If the RAG chunks don't contain the browser version, it writes "Insufficient evidence" instead of guessing.
+2. **Handling Massive Evidence Files:** Large log files or long ticket chains are chunked and only the most relevant pieces are sent to the LLM, saving tokens and avoiding the "lost in the middle" phenomenon.
+3. **Traceability (Evidence Trace):** Every generated detail maps back to a specific "chunk" of evidence, so developers know exactly what triggered the bug report.
+4. **Confidence Scoring:** The system calculates a strict similarity confidence score during retrieval. If the score is too low, it automatically aborts generation and demands human review.
+
 ## ✨ Key Features
 
 - **Multi-Source Evidence Ingestion:** Accepts screenshots, PDFs, linked Jira tickets, or raw text descriptions.
