@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Bug Pilot — AI-Powered QA Copilot for Jira. Generate structured bug reports from screenshots and logs instantly.">
+    <title>Bug Pilot | AI QA Copilot for Jira</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+
+<body>
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- HEADER -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <header class="app-header">
+        <div class="header-left">
+            <div class="logo-mark">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+                    <path d="M7 16l4 8L25 8" stroke="white" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop stop-color="#3B82F6" />
+                            <stop offset="1" stop-color="#1D4ED8" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <div class="header-brand-wrap">
+                <h1 class="header-brand">Bug Pilot</h1>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <div class="status-badge" id="connection-status">
+                <span class="status-dot disconnected"></span>
+                <span class="status-text">🔴 Jira Not Connected</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- HERO SECTION -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-pill">✈️ Bug Pilot Agent</div>
+            <h1 class="hero-title">AI QA Copilot for Jira</h1>
+            <p class="hero-subtitle">Automatic AI bug enhancer. Turn screenshots into structured Jira tickets in
+                seconds.</p>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- STEP INDICATOR -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <nav class="stepper-nav">
+        <div class="stepper-wrap">
+            <div class="stepper-container">
+                <div class="step-item active" data-step="1">
+                    <div class="step-ring">
+                        <div class="step-number">1</div>
+                        <svg class="step-check" viewBox="0 0 24 24">
+                            <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                    </div>
+                    <span class="step-label">Configure</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-item" data-step="2">
+                    <div class="step-ring">
+                        <div class="step-number">2</div>
+                        <svg class="step-check" viewBox="0 0 24 24">
+                            <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                    </div>
+                    <span class="step-label">Evidence</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-item" data-step="3">
+                    <div class="step-ring">
+                        <div class="step-number">3</div>
+                        <svg class="step-check" viewBox="0 0 24 24">
+                            <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                    </div>
+                    <span class="step-label">Generate</span>
+                </div>
+            </div>
+            <div class="step-microcopy" id="step-microcopy">
+                Connect your Jira project and configure AI engine.
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- MAIN CONTENT -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <main class="app-viewport">
+
+        <!-- STEP 1: CONFIGURATION -->
+        <section class="wizard-panel active" id="panel-config">
+            <div class="wizard-grid">
+                <!-- Left: Form -->
+                <div class="wizard-main">
+                    <div class="card card-config">
+                        <div class="card-header">
+                            <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg></div>
+                            <h2 class="card-title">Project Configuration</h2>
+                        </div>
+
+                        <div class="card-body">
+                            <!-- AI Settings Group -->
+                            <div class="form-section">
+                                <h3 class="section-title">AI Engine Settings</h3>
+                                <div class="form-grid">
+                                    <div class="form-group span-full">
+                                        <label for="groq-api-key">Groq API Key</label>
+                                        <div class="input-wrapper">
+                                            <input type="password" id="groq-api-key" placeholder="gsk_..."
+                                                autocomplete="off">
+                                            <button class="toggle-eye" onclick="togglePassword('groq-api-key')"
+                                                type="button">👁️</button>
+                                        </div>
+                                        <p class="helper-text">Used for AI bug analysis and vision reasoning. Get your
+                                            key at <a href="https://console.groq.com/" target="_blank">Groq Console</a>
+                                        </p>
+                                    </div>
+
+                                    <div class="form-group span-full">
+                                        <label for="llm-model">Model Optimization</label>
+                                        <select id="llm-model">
+                                            <option value="llama-3.3-70b-versatile">Llama 3.3 70B — Enterprise Precision
+                                                (Best reasoning)</option>
+                                            <option value="llama-3.1-8b-instant" selected>Llama 3.1 8B — Fast Analysis
+                                                (Lowest latency)</option>
+                                        </select>
+                                        <p class="helper-text">Higher precision models increase reasoning quality but
+                                            may be slower.</p>
+                                    </div>
+
+                                    <div class="form-group span-full">
+                                        <label for="custom-prompt">Custom AI Persona (Optional)</label>
+                                        <textarea id="custom-prompt" rows="2"
+                                            placeholder="e.g. 'Reports should focus on mobile responsiveness and use professional QA tone'"></textarea>
+                                        <p class="helper-text">Tailor bug tone and focus. Examples:
+                                            <strong>Security-focused QA</strong>, <strong>Accessibility
+                                                auditor</strong>, <strong>Mobile-first tester</strong>.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-divider"></div>
+
+                            <!-- Jira Settings Group -->
+                            <div class="form-section">
+                                <h3 class="section-title">Jira Integration</h3>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="jira-base-url">Atlassian Domain</label>
+                                        <input type="url" id="jira-base-url" placeholder="your-domain.atlassian.net">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="jira-project-key">Project Key</label>
+                                        <input type="text" id="jira-project-key" placeholder="e.g. PROJ">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="jira-email">Account Email</label>
+                                        <input type="email" id="jira-email" placeholder="dev@company.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="jira-api-token">Jira API Token</label>
+                                        <input type="password" id="jira-api-token" placeholder="ATATT...">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-validate" id="btn-test-connection">
+                                <span class="btn-label">Validate Jira Connection</span>
+                                <div class="btn-loader"></div>
+                            </button>
+                            <div id="connection-result" class="connection-alert" style="display:none;"></div>
+                        </div>
+
+                        <div class="card-footer">
+                            <div></div>
+                            <button class="btn btn-next" id="btn-to-step-2">
+                                Next: Add Screenshot & Evidence <span class="arrow">→</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Why Bug Pilot -->
+                <aside class="wizard-sidebar">
+                    <div class="feature-info-card" id="sidebar-info-card">
+                        <div id="sidebar-static-content">
+                            <h4 class="info-title">Why Bug Pilot?</h4>
+                            <ul class="feature-list">
+                                <li>
+                                    <div class="feature-icon">📸</div>
+                                    <div class="feature-text">
+                                        <strong>Vision Analysis</strong>
+                                        <p>AI scans screenshots to identify UI/UX bugs automatically.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🧠</div>
+                                    <div class="feature-text">
+                                        <strong>AI QA Copilot</strong>
+                                        <p>Generates Summary, Steps, and results from raw evidence.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="sidebar-dynamic-content" class="dynamic-sidebar-status">
+                            <!-- Will be updated via JS -->
+                            <div class="info-preview-box">
+                                <div class="preview-header">LIVE PREVIEW</div>
+                                <div class="preview-mock">
+                                    <div class="mock-line" style="width: 70%;"></div>
+                                    <div class="mock-line" style="width: 40%;"></div>
+                                    <div class="mock-pill">Waiting for evidence...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- STEP 2: EVIDENCE UPLOAD -->
+        <section class="wizard-panel" id="panel-evidence" style="display:none;">
+            <div class="center-container">
+                <div class="card card-evidence">
+                    <div class="card-header">
+                        <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                                <polyline points="17 8 12 3 7 8" />
+                                <line x1="12" y1="3" x2="12" y2="15" />
+                            </svg></div>
+                        <h2 class="card-title">Add Bug Evidence</h2>
+                        <div class="active-badges">
+                            <span class="badge-active" id="visual-ai-badge">Visual AI Active</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="evidence-nav">
+                            <button class="nav-opt active" data-type="screenshot">
+                                <span class="opt-icon">🖼️</span>
+                                <span>Visual Bug</span>
+                            </button>
+                            <button class="nav-opt" data-type="pdf">
+                                <span class="opt-icon">📄</span>
+                                <span>Logs/Docs</span>
+                            </button>
+                            <button class="nav-opt" data-type="jira_ticket">
+                                <span class="opt-icon">🔍</span>
+                                <span>Fetch Ticket</span>
+                            </button>
+                            <button class="nav-opt" data-type="text_description">
+                                <span class="opt-icon">✍️</span>
+                                <span>Narrative</span>
+                            </button>
+                        </div>
+
+                        <div class="upload-dropzone" id="upload-zone">
+                            <div class="dropzone-content">
+                                <div class="upload-icon-circle">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.5">
+                                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                                        <polyline points="17 8 12 3 7 8" />
+                                        <line x1="12" y1="3" x2="12" y2="15" />
+                                    </svg>
+                                </div>
+                                <p class="drop-title">Drop Screenshot or logs here</p>
+                                <p class="drop-sub">Screenshots, Logs, or Docs (Max 10MB)</p>
+                                <button class="btn-browse">Browse Files</button>
+                            </div>
+                            <input type="file" id="evidence-file" accept="image/*,.pdf,.txt,.log" hidden>
+                        </div>
+
+                        <div id="uploaded-file" class="file-card" style="display:none;">
+                            <div class="file-info">
+                                <span class="file-icon">📁</span>
+                                <span id="uploaded-filename">screenshot.png</span>
+                            </div>
+                            <button class="btn-remove" id="btn-remove-file">✕</button>
+                        </div>
+
+                        <div class="form-group" id="jira-ticket-input" style="display:none;">
+                            <label>Ticket Key to Analyze</label>
+                            <input type="text" id="existing-ticket-key" placeholder="e.g. PROJ-456">
+                        </div>
+
+                        <div class="form-group">
+                            <label>What happened? (Contextual Details)</label>
+                            <textarea id="bug-description" rows="3"
+                                placeholder="Explain the issue briefly or paste error logs..."></textarea>
+                        </div>
+
+                        <button class="btn btn-generate" id="btn-generate-bug" disabled>
+                            Generate Intelligent Bug Report
+                            <span class="btn-sparkle">✨</span>
+                        </button>
+                    </div>
+
+                    <div class="card-footer">
+                        <button class="btn btn-secondary" id="btn-back-to-step-1">Back to Setup</button>
+                        <button class="btn btn-primary" id="btn-to-step-3" disabled>Proceed to Preview &rarr;</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 3: PREVIEW & SUBMIT -->
+        <section class="wizard-panel" id="panel-preview" style="display:none;">
+            <div class="center-container wide">
+                <div class="card card-preview">
+                    <div class="card-header">
+                        <div class="card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg></div>
+                        <h2 class="card-title">AI Vision Report</h2>
+                    </div>
+
+                    <div class="card-body">
+                        <div id="preview-empty" class="state-placeholder">
+                            <div class="placeholder-icon">📋</div>
+                            <p>Analysis report has not been initiated.<br>Complete Step 2 and click Generate.</p>
+                        </div>
+
+                        <div id="preview-loading" class="state-placeholder" style="display:none;">
+                            <div class="modern-loader"></div>
+                            <h3 class="loader-title">Synthesizing AI Context...</h3>
+                            <p>Mapping screenshots and logs to structured Jira fields.</p>
+                        </div>
+
+                        <div id="preview-content" style="display:none;">
+                            <div class="preview-metrics">
+                                <div class="metric-card">
+                                    <div class="metric-info">
+                                        <span class="metric-label">AI CONFIDENCE</span>
+                                        <span class="metric-value" id="confidence-value">0%</span>
+                                    </div>
+                                    <div class="metric-bar">
+                                        <div class="bar-fill" id="confidence-fill"></div>
+                                    </div>
+                                    <div class="metric-status" id="confidence-status">High Precision Mode</div>
+                                </div>
+                            </div>
+
+                            <div class="bug-editor-grid">
+                                <div class="form-group span-full">
+                                    <label>Bug Summary</label>
+                                    <input type="text" id="edit-summary" class="editor-input">
+                                </div>
+                                <div class="form-group span-full">
+                                    <label>Detailed Description</label>
+                                    <textarea id="edit-description" class="editor-input" rows="5"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Steps to Reproduce</label>
+                                    <textarea id="edit-steps" class="editor-input" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Priority</label>
+                                    <select id="edit-priority" class="editor-input">
+                                        <option value="Highest">Highest (Critical)</option>
+                                        <option value="High">High (Serious)</option>
+                                        <option value="Medium" selected>Medium (Standard)</option>
+                                        <option value="Low">Low (Minor)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Actual Result</label>
+                                    <textarea id="edit-actual" class="editor-input" rows="2"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Expected Result</label>
+                                    <textarea id="edit-expected" class="editor-input" rows="2"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="trace-section">
+                                <h4 class="trace-title">Evidence Trace</h4>
+                                <div class="chip-container" id="trace-chips"></div>
+                            </div>
+
+                            <div class="preview-actions">
+                                <button class="btn btn-submit-jira" id="btn-submit-jira">
+                                    Confirm and File Report to Jira
+                                    <span class="btn-check">✓</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="preview-success" class="state-placeholder success" style="display:none;">
+                            <div class="success-ring">✨</div>
+                            <h3>Report Filed Successfully</h3>
+                            <p class="issue-key-large" id="success-issue-key">PROJ-XXX</p>
+                            <div class="success-actions">
+                                <a id="success-issue-link" href="#" target="_blank" class="btn btn-primary">Open in
+                                    Jira</a>
+                                <button class="btn btn-secondary" id="btn-new-bug">Generate New Report</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button class="btn btn-secondary" id="btn-back-to-step-2">Back to Evidence</button>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast-stack" id="toast-container"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+
+</html>

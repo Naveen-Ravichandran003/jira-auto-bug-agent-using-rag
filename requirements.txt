@@ -1,0 +1,43 @@
+# Jira Auto-Bug Mapping AI Agent - Dependencies
+
+# API Framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+
+# Jira Integration
+requests>=2.31.0
+
+# OCR
+pytesseract>=0.3.10
+Pillow>=10.0.0
+opencv-python>=4.8.0
+easyocr>=1.7.0
+
+# PDF Processing
+PyPDF2>=3.0.0
+pdfplumber>=0.10.0
+
+# RAG Pipeline
+langchain>=0.3.0
+langchain-community>=0.3.0
+faiss-cpu>=1.7.4
+tiktoken>=0.5.0
+sentence-transformers>=5.2.3
+torch>=2.10.0
+
+# LLM
+groq>=0.4.0
+
+# Data Validation
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# Environment & Security
+python-dotenv>=1.0.0
+
+# Logging
+loguru>=0.7.0
+
+# CORS
+starlette>=0.27.0
